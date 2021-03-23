@@ -6,9 +6,9 @@ class Vokker:
     def __init__(self, file):
         self._datafile = file
 
-    def open(self):
+    def open(self, mode: str = "r"):
         try:
-            self._file_handle = open('data/' + self._datafile, "a")
+            self._file_handle = open('data/' + self._datafile, mode)
         except FileNotFoundError:
             # self._file_handle = open('data/' + self._datafile)
             # self._file_handle.close()
@@ -33,3 +33,6 @@ class Vokker:
             data = f'{key} {self._vok_dict_[key]}\n'
             self._file_handle.write(data)
             print(key, self._vok_dict_[key])
+
+    def close(self):
+        pass

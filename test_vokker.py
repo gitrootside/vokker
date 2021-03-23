@@ -14,6 +14,8 @@ class MyTestCase(unittest.TestCase):
         lection = Vokker(datafile)
         bool = lection.open()
         self.assertTrue(bool)
+        lection.close()
+
 
     def test_insert_new_data(self):
         datafile = 'test.vok'
