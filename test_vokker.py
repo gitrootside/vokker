@@ -28,17 +28,17 @@ class MyTestCase(unittest.TestCase):
 
         self.assertIn('Musik', translated)
 
-    """
+
     def test_write_vok(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
         lection.open("a")
-        lection.add_vok('Auto', 'car')
-        lection.add_vok('Baum', 'tree')
+        lection.add('Auto', 'car')
+        lection.add('Baum', 'tree')
 
-        lection.write_vok()
+        lection.write()
         lection.close()
-    """
+
 
     def test_read_vok(self):
         datafile = 'test.vok'
