@@ -33,7 +33,12 @@ class Vokker:
     def read_vok(self):
         if self._vok_dict_ is not None:
             for data in self._file_handle:
-                print(data)
+                vok = data.split(" ")
+                self._vok_dict_[vok[0]] = vok[1].strip()
+                return True
+        else:
+            # Datafield is not empty, don`t read
+            return False
 
     def close(self):
         self._file_handle.close()
