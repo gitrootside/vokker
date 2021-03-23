@@ -12,15 +12,17 @@ class MyTestCase(unittest.TestCase):
     def test_create_new_datafile(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
+
         bool = lection.open()
         self.assertTrue(bool)
+
         lection.close()
 
 
     def test_insert_new_data(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
-        lection.open()
+
         lection.add_vok('Auto', 'car')
         translated = lection.get_vok_dict()
         self.assertIn('Auto', translated)
@@ -28,14 +30,18 @@ class MyTestCase(unittest.TestCase):
     def test_write_vok(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
-        lection.open()
+        lection.open("a")
         lection.add_vok('Auto', 'car')
         lection.add_vok('Baum', 'tree')
 
-        lection.write()
+        lection.write_vok()
+        lection.close()
 
-
-
+    def test_read_vok(self):
+        datafile = 'test.vok'
+        lection = Vokker(datafile)
+        lection.open()
+        lection.read_vok()
 
 if __name__ == '__main__':
     unittest.main()
