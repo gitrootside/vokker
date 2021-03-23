@@ -18,7 +18,11 @@ class MyTestCase(unittest.TestCase):
     def test_insert_new_data(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
-
+        lection.open()
+        lection.add_vok('Auto', 'car')
+        translated = lection.get_vok_dict()
+        self.assertIn('Auto', translated)
+        print(translated['Auto'])
 
 
 if __name__ == '__main__':
