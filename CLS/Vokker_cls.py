@@ -6,5 +6,12 @@ class Vokker:
         self.datafile = file
 
     def open(self):
-        self.file_handle = open('data/' + self.datafile, "a+")
+        try:
+            self.file_handle = open('data/' + self.datafile, "a+")
+        except FileNotFoundError:
+            self.file_handle = open('data/' + self.datafile)
+            self.file_handle.close()
+            self.file_handle = open('data/' + self.datafile, "a+")
+
+
         return self.file_handle
