@@ -4,6 +4,7 @@ class Vokker:
     _vok_dict_ = dict()
     _datafolder_ = "data"
 
+
     def __init__(self, file):
         self._datafile_ = file
 
@@ -22,6 +23,14 @@ class Vokker:
         return True
 
     def add(self, *args):
+        # todo : extends the data for insert more than one meaning for one word
+
+        """ simple add a vok to the dictionary
+
+        :param args: 2 words for vok
+        :return:    False if args empty and length unequal 2 or key still in dictionary
+                    True ok
+        """
         if args and len(args) == 2:
             source = args[0]
             translate = args[1]
@@ -38,14 +47,16 @@ class Vokker:
         return self._vok_dict_
 
     def write(self):
+        # todo : think about overwrite und append
+
         for key in self._vok_dict_:
-            data = f'{key} {self._vok_dict_[key]}\n'
+            data = f'{key},{self._vok_dict_[key]}\n'
             self._file_handle_.write(data)
 
     def read(self):
         if self._vok_dict_ is not None:
             for data in self._file_handle_:
-                vok = data.split(" ")
+                vok = data.split(",")
                 self._vok_dict_[vok[0]] = vok[1].strip()
                 return True
         else:

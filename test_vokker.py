@@ -22,7 +22,7 @@ class MyTestCase(unittest.TestCase):
         datafile = 'test.vok'
         lection = Vokker(datafile)
 
-        # lection.add('Auto', 'car')
+        lection.add('Auto', 'car')
         lection.add('Musik', 'music')
         translated = lection.get_vok_dict()
 
@@ -32,11 +32,11 @@ class MyTestCase(unittest.TestCase):
     def test_write_vok(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
-        lection.open("a")
+        lection.open("w")
         lection.add('Auto', 'car')
         lection.add('Baum', 'tree')
-
         lection.write()
+
         lection.close()
 
 
