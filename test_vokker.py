@@ -15,8 +15,10 @@ class MyTestCase(unittest.TestCase):
         bool = lection.open()
         self.assertTrue(bool)
 
-        # def test_something(self):
-        #     self.assertEqual(True, False)
+    def test_insert_new_data(self):
+        datafile = 'test.vok'
+        lection = Vokker(datafile)
+
 
 
 if __name__ == '__main__':
