@@ -15,7 +15,13 @@ class Vokker:
 
         return self._file_handle
 
-    def add_vok(self, source, translate):
+    def add(self, *args):
+        if args and len(args) == 2:
+            source = args[0]
+            translate = args[1]
+        else:
+            return False    # more than two words
+
         if source not in self._vok_dict_:
             self._vok_dict_[source] = translate
             return True
@@ -25,12 +31,12 @@ class Vokker:
     def get_vok_dict(self):
         return self._vok_dict_
 
-    def write_vok(self):
+    def write(self):
         for key in self._vok_dict_:
             data = f'{key} {self._vok_dict_[key]}\n'
             self._file_handle.write(data)
 
-    def read_vok(self):
+    def read(self):
         if self._vok_dict_ is not None:
             for data in self._file_handle:
                 vok = data.split(" ")

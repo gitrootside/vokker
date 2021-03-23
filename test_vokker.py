@@ -18,14 +18,15 @@ class MyTestCase(unittest.TestCase):
 
         lection.close()
 
-
     def test_insert_new_data(self):
         datafile = 'test.vok'
         lection = Vokker(datafile)
 
-        lection.add_vok('Auto', 'car')
+        # lection.add('Auto', 'car')
+        lection.add('Musik', 'music')
         translated = lection.get_vok_dict()
-        self.assertIn('Auto', translated)
+
+        self.assertIn('Musik', translated)
 
     """
     def test_write_vok(self):
@@ -43,8 +44,9 @@ class MyTestCase(unittest.TestCase):
         datafile = 'test.vok'
         lection = Vokker(datafile)
         lection.open()
-        lection.read_vok()
+        lection.read()
         lection.close()
+
 
 if __name__ == '__main__':
     unittest.main()
