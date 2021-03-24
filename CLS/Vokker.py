@@ -3,7 +3,7 @@ class Vokker:
     def __init__(self):
         self.datafile = None
         self._file_handle_ = None
-        self._vok_dict_ = dict()
+        self._vok_dict_ = None
         self._vok_new_data_ = None
         self._datafolder_ = "data"
         self._safelock_ = False  # Lock for deleting data
@@ -63,14 +63,12 @@ class Vokker:
             self._file_handle_.write(data)
 
     def read(self):
-        if self._vok_dict_ is not None:
+        rt = False
+        if (self._file_handle_ is not None) and (self._vok_dict_ is not None):
             for data in self._file_handle_:
                 vok = data.split(",")
                 self._vok_dict_[vok[0]] = vok[1].strip()
                 return True
-        else:
-            # Datafield is not empty, don`t read
-            return False
 
     def close(self):
         rt = False

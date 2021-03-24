@@ -18,25 +18,25 @@ class MyTestCase(unittest.TestCase):
 
         lection.close()
 
-    def test_insert_new_data(self):
-        datafile = 'test.vok'
-        lection = Vokker()
+    # def test_insert_new_data(self):
+    #     datafile = 'test.vok'
+    #     lection = Vokker()
+    #
+    #     lection.add('Auto', 'car')
+    #     lection.add('Musik', 'music')
+    #     translated = lection.get_vok_dict()
+    #
+    #     self.assertIn('Musik', translated)
 
-        lection.add('Auto', 'car')
-        lection.add('Musik', 'music')
-        translated = lection.get_vok_dict()
-
-        self.assertIn('Musik', translated)
-
-    def test_write_vok(self):
-        datafile = 'test.vok'
-        lection = Vokker()
-        lection.open(datafile, "w")
-        lection.add('Auto', 'car')
-        lection.add('Baum', 'tree')
-        lection.write()
-
-        lection.close()
+    # def test_write_vok(self):
+    #     datafile = 'test.vok'
+    #     lection = Vokker()
+    #     lection.open(datafile, "w")
+    #     lection.add('Auto', 'car')
+    #     lection.add('Baum', 'tree')
+    #     lection.write()
+    #
+    #     lection.close()
 
     def test_read_vok(self):
         datafile = 'test.vok'
@@ -80,12 +80,14 @@ class MyTestCase(unittest.TestCase):
         rt = lection.close()
         self.assertFalse(rt, "safelock is activ")
 
-    # def test_workflow_4_a_vokker_instance(self):
-    #     datafile = 'test.vok'
-    #     lection = Vokker()
-    #     rt = lection.open(datafile)
-    #     self.assertTrue(rt, "not opened correctly")
-    #     lection.close()
+
+
+    def test_read_non_exist_file_failed(self):
+        v = Vokker()
+        rt = v.read()
+        self.assertFalse(rt, "read not existing file!!!")
+
+
 
 
 if __name__ == '__main__':
