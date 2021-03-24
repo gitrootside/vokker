@@ -3,7 +3,7 @@ class Vokker:
     def __init__(self):
         self.datafile = None
         self._file_handle_ = None
-        self._vok_dict_ = None
+        self._vok_data_ = None
         self._vok_new_data_ = None
         self._datafolder_ = "data"
         self._safelock_ = False  # Lock for deleting data
@@ -29,6 +29,14 @@ class Vokker:
 
         return rt
 
+    def close(self):
+        rt = False
+        if (self._file_handle_ is not None) and (self._safelock_ is False) and (self._vok_new_data_ is None):
+            self._file_handle_.close()
+            rt = True
+            self._file_handle_ = None
+        return rt
+
     def add(self, *args):
         # todo : extends the data for insert more than one meaning for one word
 
@@ -44,34 +52,31 @@ class Vokker:
         else:
             return False  # more than two words
 
-        if source not in self._vok_dict_:
-            self._vok_dict_[source] = translate
+        if source not in self._vok_data_:
+            self._vok_data_[source] = translate
             return True
         else:
             return False
 
     def get_vok_dict(self):
-        return self._vok_dict_
+        return self._vok_data_
 
     def write(self):
         # todo : think about overwrite und append
 
-        for key in self._vok_dict_:
-            data = f'{key},{self._vok_dict_[key]}\n'
+        for key in self._vok_data_:
+            data = f'{key},{self._vok_data_[key]}\n'
             self._file_handle_.write(data)
 
     def read(self):
         rt = False
-        if (self._file_handle_ is not None) and (self._vok_dict_ is not None) and (self._safelock_ is False):
+        if (self._file_handle_ is not None) and (self._vok_data_ is None) and (self._safelock_ is False):
+            rt = True
+            self._vok_data_ = dict()
+            self._vok_new_data_ = dict()
+
             for data in self._file_handle_:
                 vok = data.split(",")
-                self._vok_dict_[vok[0]] = vok[1].strip()
-                return True
+                self._vok_data_[vok[0]] = vok[1].strip()
 
-    def close(self):
-        rt = False
-        if (self._file_handle_ is not None) and (self._safelock_ is False) and (self._vok_new_data_ is None):
-            self._file_handle_.close()
-            rt = True
-            self._file_handle_ = None
         return rt
