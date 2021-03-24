@@ -7,6 +7,9 @@ class Vokker:
     def __init__(self):
         pass
 
+    def set_filename(self, filename):
+        self.datafile = filename
+
     def open(self, mode: str = "r"):
         """
         open a vok-file and hold the connection, store the instance in _file_handle_
