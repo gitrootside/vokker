@@ -1,11 +1,11 @@
 class Vokker:
-    _datafile_ = None
+    datafile = None
     _file_handle_ = None
     _vok_dict_ = dict()
     _datafolder_ = "data"
 
     def __init__(self, file):
-        self._datafile_ = file
+        self.datafile = file
 
     def open(self, mode: str = "r"):
         """
@@ -15,7 +15,7 @@ class Vokker:
         :return: False if connection failed.... True if connection successful applied
         """
         try:
-            self._file_handle_ = open('data/' + self._datafile_, mode)
+            self._file_handle_ = open('data/' + self.datafile, mode)
         except FileNotFoundError:
             return False
 

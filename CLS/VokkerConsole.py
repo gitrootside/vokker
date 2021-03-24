@@ -12,17 +12,20 @@ class VokkerConsole:
         self._menue_ = [
             '   Vokabeltrainer',
             '--------------------',
-            '[ aktuelle Lektion]\n',
+            '[filename]',
             '(1) öffnen',
             '(2) eingeben',
             '(3) auswerten',
             '(4) speichern',
-            '(5) beenden',
+            '(5) beenden\n',
         ]
 
     def show_menu(self):
         for line in self._menue_:
-            print(line)
+            if line == '[filename]':
+                print(str(self._vokker_.datafile).center(20),'\n')
+            else:
+                print(line)
 
     def imput_menue(self):
         pass
