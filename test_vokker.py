@@ -66,14 +66,26 @@ class MyTestCase(unittest.TestCase):
         rt = lection.open(datafile)
         self.assertFalse(rt, "still unsaved data in new_data")
 
-       # lection.close()
+    def test_close_non_opened_file_failed(self):
+        l = Vokker()
+        l._safelock_ = True
+        rt = l.close()
+        self.assertFalse(rt, "unable to close non-opened file!!! ")
 
-    def test_workflow_4_a_vokker_instance(self):
+    def test_close_if_safelock_is_true_failed(self):
         datafile = 'test.vok'
         lection = Vokker()
-        rt = lection.open(datafile)
-        self.assertTrue(rt, "not opened correctly")
-        lection.close()
+        lection.open(datafile)
+        lection._safelock_ = True
+        rt = lection.close()
+        self.assertFalse(rt, "safelock is activ")
+
+    # def test_workflow_4_a_vokker_instance(self):
+    #     datafile = 'test.vok'
+    #     lection = Vokker()
+    #     rt = lection.open(datafile)
+    #     self.assertTrue(rt, "not opened correctly")
+    #     lection.close()
 
 
 if __name__ == '__main__':

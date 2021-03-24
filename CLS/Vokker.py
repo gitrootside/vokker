@@ -73,5 +73,9 @@ class Vokker:
             return False
 
     def close(self):
-        self._file_handle_.close()
-        self._file_handle_ = None
+        rt = False
+        if (self._file_handle_ is None) and (self._safelock_ is False):
+            self._file_handle_.close()
+            rt = True
+            self._file_handle_ = None
+        return rt
