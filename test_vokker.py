@@ -80,14 +80,20 @@ class MyTestCase(unittest.TestCase):
         rt = lection.close()
         self.assertFalse(rt, "safelock is activ")
 
+    def test_close_if_vok_new_data_not_empty_failed(self):
+        datafile = 'test.vok'
+        lection = Vokker()
+        lection.open(datafile)
+        lection._vok_new_data_ = dict()
+        lection._vok_new_data_['Auto'] = 'car'
 
+        rt = lection.close()
+        self.assertFalse(rt, "still unsaved data in new_data")
 
     def test_read_non_exist_file_failed(self):
         v = Vokker()
         rt = v.read()
         self.assertFalse(rt, "read not existing file!!!")
-
-
 
 
 if __name__ == '__main__':

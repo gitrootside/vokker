@@ -26,8 +26,6 @@ class Vokker:
                 rt = True
             except FileNotFoundError:
                 rt = False
-        else:
-            rt = False
 
         return rt
 
@@ -64,7 +62,7 @@ class Vokker:
 
     def read(self):
         rt = False
-        if (self._file_handle_ is not None) and (self._vok_dict_ is not None):
+        if (self._file_handle_ is not None) and (self._vok_dict_ is not None) and (self._safelock_ is False):
             for data in self._file_handle_:
                 vok = data.split(",")
                 self._vok_dict_[vok[0]] = vok[1].strip()
@@ -72,7 +70,7 @@ class Vokker:
 
     def close(self):
         rt = False
-        if (self._file_handle_ is None) and (self._safelock_ is False):
+        if (self._file_handle_ is not None) and (self._safelock_ is False) and (self._vok_new_data_ is None):
             self._file_handle_.close()
             rt = True
             self._file_handle_ = None
