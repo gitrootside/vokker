@@ -28,7 +28,6 @@ class MyTestCase(unittest.TestCase):
 
         self.assertIn('Musik', translated)
 
-
     def test_write_vok(self):
         datafile = 'test.vok'
         lection = Vokker()
@@ -39,12 +38,32 @@ class MyTestCase(unittest.TestCase):
 
         lection.close()
 
-
     def test_read_vok(self):
         datafile = 'test.vok'
         lection = Vokker()
         lection.open(datafile)
         lection.read()
+        lection.close()
+
+    def test_open_nonexistent_file_failed(self):
+        datafile = 'not_existing_file.vok'
+        lection = Vokker()
+        rt = lection.open(datafile)
+        self.assertFalse(rt, 'try to open a non existing file!!!')
+
+    def test_open_if_safelock_is_true_failed(self):
+        datafile = 'test.vok'
+        lection = Vokker()
+        lection._safelock_ = True
+        rt = lection.open(datafile)
+        self.assertFalse(rt, "File opend, but safelock is True")
+
+    def test_workflow_4_a_vokker_instance(self):
+        datafile = 'test.vok'
+        lection = Vokker()
+        rt = lection.open(datafile)
+        self.assertTrue(rt, "not opened correctly")
+
         lection.close()
 
 

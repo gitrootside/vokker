@@ -1,11 +1,12 @@
 class Vokker:
-    datafile = None
-    _file_handle_ = None
-    _vok_dict_ = dict()
-    _datafolder_ = "data"
 
     def __init__(self):
-        pass
+        self.datafile = None
+        self._file_handle_ = None
+        self._vok_dict_ = dict()
+        self._vok_new_data = dict()
+        self._datafolder_ = "data"
+        self.safelock = False  # Lock for deleting data
 
     def set_filename(self, filename):
         self.datafile = filename
@@ -18,12 +19,17 @@ class Vokker:
         :param mode: like in standard-python open
         :return: False if connection failed.... True if connection successful applied
         """
-        try:
-            self._file_handle_ = open('data/' + filename, mode)
-        except FileNotFoundError:
-            return False
+        rt = False
+        if len(self._vok_new_data) == 0 and self.safelock is False:
+            try:
+                self._file_handle_ = open('data/' + filename, mode)
+                rt = True
+            except FileNotFoundError:
+                rt = False
+        else:
+            rt = False
 
-        return True
+        return rt
 
     def add(self, *args):
         # todo : extends the data for insert more than one meaning for one word
