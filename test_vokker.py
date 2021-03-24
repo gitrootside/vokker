@@ -13,7 +13,7 @@ class MyTestCase(unittest.TestCase):
         datafile = 'test.vok'
         lection = Vokker()
 
-        bool = lection.open(None)
+        bool = lection.open(datafile)
         self.assertTrue(bool)
 
         lection.close()
@@ -32,7 +32,7 @@ class MyTestCase(unittest.TestCase):
     def test_write_vok(self):
         datafile = 'test.vok'
         lection = Vokker()
-        lection.open(None, "w")
+        lection.open(datafile, "w")
         lection.add('Auto', 'car')
         lection.add('Baum', 'tree')
         lection.write()
@@ -43,7 +43,7 @@ class MyTestCase(unittest.TestCase):
     def test_read_vok(self):
         datafile = 'test.vok'
         lection = Vokker()
-        lection.open(None)
+        lection.open(datafile)
         lection.read()
         lection.close()
 

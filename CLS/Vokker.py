@@ -19,7 +19,7 @@ class Vokker:
         :return: False if connection failed.... True if connection successful applied
         """
         try:
-            self._file_handle_ = open('data/' + self.datafile, mode)
+            self._file_handle_ = open('data/' + filename, mode)
         except FileNotFoundError:
             return False
 
