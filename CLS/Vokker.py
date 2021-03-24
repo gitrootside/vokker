@@ -4,7 +4,6 @@ class Vokker:
     _vok_dict_ = dict()
     _datafolder_ = "data"
 
-
     def __init__(self, file):
         self._datafile_ = file
 
@@ -65,3 +64,4 @@ class Vokker:
 
     def close(self):
         self._file_handle_.close()
+        self._file_handle_ = None

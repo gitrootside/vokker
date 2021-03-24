@@ -1,6 +1,6 @@
 import unittest
 
-from CLS.Vokker_cls import Vokker
+from CLS.Vokker import Vokker
 
 
 class MyTestCase(unittest.TestCase):
