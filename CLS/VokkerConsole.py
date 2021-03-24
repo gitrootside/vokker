@@ -1,3 +1,6 @@
+import os
+import sys
+
 from CLS.Vokker import Vokker
 
 
@@ -10,6 +13,8 @@ class VokkerConsole:
 
     def _menue_(self):
         self._menue_ = [
+            '',
+            '',
             '   Vokabeltrainer',
             '--------------------',
             '[filename]',
@@ -17,15 +22,23 @@ class VokkerConsole:
             '(2) eingeben',
             '(3) auswerten',
             '(4) speichern',
-            '(5) beenden\n',
+            '(5) beenden',
+            '--------------------',
         ]
 
     def show_menu(self):
+
+        try:
+            s = sys.winver
+            os.system("cls")
+        except:
+            os.system("clear")
+
         for line in self._menue_:
             if line == '[filename]':
-                print(str(self._vokker_.datafile).center(20),'\n')
+                print('\t\t', str(self._vokker_.datafile).center(20), '\n')
             else:
-                print(line)
+                print('\t\t',line)
 
     def imput_menue(self):
         pass

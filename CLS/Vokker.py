@@ -4,8 +4,8 @@ class Vokker:
     _vok_dict_ = dict()
     _datafolder_ = "data"
 
-    def __init__(self, file):
-        self.datafile = file
+    def __init__(self):
+        pass
 
     def open(self, mode: str = "r"):
         """

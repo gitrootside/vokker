@@ -6,12 +6,12 @@ from CLS.Vokker import Vokker
 class MyTestCase(unittest.TestCase):
 
     def test_init_instance(self):
-        lection = Vokker('instance.vok')
+        lection = Vokker()
         self.assertIsInstance(lection, Vokker)
 
     def test_create_new_datafile(self):
         datafile = 'test.vok'
-        lection = Vokker(datafile)
+        lection = Vokker()
 
         bool = lection.open()
         self.assertTrue(bool)
@@ -20,7 +20,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_insert_new_data(self):
         datafile = 'test.vok'
-        lection = Vokker(datafile)
+        lection = Vokker()
 
         lection.add('Auto', 'car')
         lection.add('Musik', 'music')
@@ -31,7 +31,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_write_vok(self):
         datafile = 'test.vok'
-        lection = Vokker(datafile)
+        lection = Vokker()
         lection.open("w")
         lection.add('Auto', 'car')
         lection.add('Baum', 'tree')
@@ -42,7 +42,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_read_vok(self):
         datafile = 'test.vok'
-        lection = Vokker(datafile)
+        lection = Vokker()
         lection.open()
         lection.read()
         lection.close()
