@@ -57,21 +57,22 @@ class MyTestCase(unittest.TestCase):
         lection._safelock_ = True
         rt = lection.open(datafile)
 
-        self.assertFalse(rt, "File opend, but safelock is True")
+        self.assertFalse(rt, "File opened, but safelock is True")
 
     def test_open_if_vok_new_data_not_empty_failed(self):
         datafile = 'test.vok'
         lection = Vokker()
-        lection._vok_new_data_["existieren"] = "exist"
+        lection._vok_new_data_ = ""
         rt = lection.open(datafile)
         self.assertFalse(rt, "still unsaved data in new_data")
+
+       # lection.close()
 
     def test_workflow_4_a_vokker_instance(self):
         datafile = 'test.vok'
         lection = Vokker()
         rt = lection.open(datafile)
         self.assertTrue(rt, "not opened correctly")
-
         lection.close()
 
 
