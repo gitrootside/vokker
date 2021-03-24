@@ -56,6 +56,7 @@ class MyTestCase(unittest.TestCase):
         lection = Vokker()
         lection._safelock_ = True
         rt = lection.open(datafile)
+
         self.assertFalse(rt, "File opend, but safelock is True")
 
     def test_workflow_4_a_vokker_instance(self):

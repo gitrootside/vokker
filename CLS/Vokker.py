@@ -4,9 +4,9 @@ class Vokker:
         self.datafile = None
         self._file_handle_ = None
         self._vok_dict_ = dict()
-        self._vok_new_data = dict()
+        self._vok_new_data_ = dict()
         self._datafolder_ = "data"
-        self.safelock = False  # Lock for deleting data
+        self._safelock_ = False  # Lock for deleting data
 
     def set_filename(self, filename):
         self.datafile = filename
@@ -20,7 +20,7 @@ class Vokker:
         :return: False if connection failed.... True if connection successful applied
         """
         rt = False
-        if len(self._vok_new_data) == 0 and self.safelock is False:
+        if self._safelock_ is False:
             try:
                 self._file_handle_ = open('data/' + filename, mode)
                 rt = True
