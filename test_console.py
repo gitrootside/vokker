@@ -8,7 +8,7 @@ class MyTestCase(unittest.TestCase):
     vokker = Vokker()
 
     def test_console_shows_menue(self):
-        self.vokker.open()
+        self.vokker.open(None)
         self.vokker.read()
 
         cons = VokkerConsole(self.vokker)

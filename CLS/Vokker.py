@@ -10,10 +10,11 @@ class Vokker:
     def set_filename(self, filename):
         self.datafile = filename
 
-    def open(self, mode: str = "r"):
+    def open(self, filename, mode: str = "r"):
         """
         open a vok-file and hold the connection, store the instance in _file_handle_
 
+        :param filename:
         :param mode: like in standard-python open
         :return: False if connection failed.... True if connection successful applied
         """
