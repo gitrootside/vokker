@@ -105,7 +105,7 @@ class MyTestCase(unittest.TestCase):
 
         lection._file_handle_.close()
 
-    def read_Fail_not_opend_file(self):
+    def test_read_Fail_not_opend_file(self):
         lection = Vokker()
         rt = lection.read()
         self.assertFalse(rt)
