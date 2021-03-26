@@ -31,7 +31,7 @@ class Vokker:
 
     def close(self):
         rt = False
-        if (self._file_handle_ is not None) and (self._safelock_ is False) and (self._vok_new_data_ is None):
+        if (self._safelock_ is False) and (self._vok_new_data_ is None):
             self._file_handle_.close()
             rt = True
             self._file_handle_ = None
@@ -80,3 +80,12 @@ class Vokker:
                 self._vok_data_[vok[0]] = vok[1].strip()
 
         return rt
+
+    def fileexist(self, file):
+
+        try:
+            f = open(self._datafolder_ + "/" + file, "r")
+            f.close()
+            return f
+        except:
+            return False

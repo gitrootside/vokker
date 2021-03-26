@@ -32,7 +32,6 @@ class MyTestCase(unittest.TestCase):
         lection = Vokker()
         rt = lection.open(datafile)
         self.assertFalse(rt, 'try to open a non existing file!!!')
-        lection.close()
 
     def test_open_FAIL_if_safelock_is_true(self):
         datafile = 'test.vok'
@@ -65,7 +64,7 @@ class MyTestCase(unittest.TestCase):
         lection._safelock_ = True
         rt = lection.close()
         self.assertFalse(rt, "safelock is activ")
-        lection.close()
+        lection._file_handle_.close()
 
     def test_close_FAIL_if_vok_new_data_not_empty(self):
         datafile = 'test.vok'
@@ -74,19 +73,42 @@ class MyTestCase(unittest.TestCase):
         lection._vok_new_data_ = dict()
         lection._vok_new_data_['Auto'] = 'car'
 
-        rt = lection.close()
+        rt = lection._file_handle_.close()
         self.assertFalse(rt, "still unsaved data in new_data")
 
-    #   Vokker.read
-    def test_read_existing_file(self):
-        datafile = "test2.vok"
-        v = Vokker()
+    # Vokker.fileexist()
+    def test_fileexist(self):
+        file = "normal.vok"
+        lec = Vokker()
+        rt = lec.fileexist(file)
+        self.assertTrue(rt)
 
-        if v.open(datafile):
-            rt = v.read()
-            v.close()
+    def test_fileexist_FAIL_non_existing_file(self):
+        file = "non_existin_file.vok.vok"
+        lec = Vokker()
+        rt = lec.fileexist(file)
+        self.assertFalse(rt)
 
-        self.assertTrue(rt and len(v._vok_data_) == 2, "read not existing file!!!")
+    # Vokker.read()
+
+    def test_read_normal_file(self):
+        datafile = 'normal.vok'
+        lection = Vokker()
+        lection.open(datafile)
+        lection.read()
+
+        compartion_dict = {"Auto": "car",
+                           "Baum": "tree",
+                           "empfohlen": "recommend"}
+        boo = bool(compartion_dict == lection.get_vok_dict())
+        self.assertTrue(boo)
+
+        lection._file_handle_.close()
+
+    def read_Fail_not_opend_file(self):
+        lection = Vokker()
+        rt = lection.read()
+        self.assertFalse(rt)
 
 
 if __name__ == '__main__':
