@@ -105,10 +105,36 @@ class MyTestCase(unittest.TestCase):
 
         lection._file_handle_.close()
 
-    def test_read_Fail_not_opend_file(self):
+    def test_read_opend_file(self):
+        file = "normal.vok"
+        lection = Vokker()
+        lection.open(file)
+
+        rt = lection.read()
+        self.assertTrue(rt)
+        lection.close
+
+    def test_read_FAIL_not_opend_file(self):
         lection = Vokker()
         rt = lection.read()
         self.assertFalse(rt)
+
+    def test_read_FAIL_wrong_linecount(self):
+        file = "wrong_linenumber.vok"
+        lection = Vokker()
+        lection.open(file)
+
+        rt = lection.read()
+        self.assertFalse(False)
+
+    def test_read_FAIL_wrong_header(self):
+        file = "wrong_header.vok"
+        lection = Vokker()
+        lection.open(file)
+
+        rt = lection.read()
+        self.assertFalse(False)
+        lection.close()
 
 
 if __name__ == '__main__':

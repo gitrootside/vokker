@@ -1,14 +1,18 @@
+import re as re
+
 class Vokker:
+    # Filestructure: first line: number of lines
 
     def __init__(self):
         self.datafile = None
         self._file_handle_ = None
         self._vok_data_ = None
         self._vok_new_data_ = None
-        self._datafolder_ = "data"
+        self._datafolder_ = "test_data"
         self._safelock_ = False  # Lock for deleting data
 
     def set_filename(self, filename):
+
         self.datafile = filename
 
     def open(self, filename, mode: str = "r"):
@@ -22,7 +26,7 @@ class Vokker:
         rt = False
         if (self._safelock_ is False) and (self._vok_new_data_ is None):
             try:
-                self._file_handle_ = open('data/' + filename, mode)
+                self._file_handle_ = open(self._datafolder_ + '/' + filename, mode)
                 rt = True
             except FileNotFoundError:
                 rt = False
@@ -68,19 +72,6 @@ class Vokker:
             data = f'{key},{self._vok_data_[key]}\n'
             self._file_handle_.write(data)
 
-    def read(self):
-        rt = False
-        if (self._file_handle_ is not None) and (self._vok_data_ is None) and (self._safelock_ is False):
-            rt = True
-            self._vok_data_ = dict()
-            self._vok_new_data_ = dict()
-
-            for data in self._file_handle_:
-                vok = data.split(",")
-                self._vok_data_[vok[0]] = vok[1].strip()
-
-        return rt
-
     def fileexist(self, file):
 
         try:
@@ -89,3 +80,26 @@ class Vokker:
             return f
         except:
             return False
+
+    def read(self):
+        rt = False
+        if (self._file_handle_ is not None) and (self._vok_data_ is None) and (self._safelock_ is False):
+            rt = True
+            self._vok_data_ = dict()
+            self._vok_new_data_ = dict()
+
+            first = True
+            for data in self._file_handle_:
+                if first:
+                    if re.match("\A\d{1,5}\s",data):
+                        number_lines = int(data)
+                        first = False
+                    else:
+                        return False
+                else:
+                    vok = data.split(",")
+                    self._vok_data_[vok[0]] = vok[1].strip()
+
+            if len(self._vok_data_) != number_lines:
+                rt = False
+        return rt
