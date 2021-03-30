@@ -1,5 +1,6 @@
 import re as re
 
+
 class Vokker:
     # Filestructure: first line: number of lines
 
@@ -10,6 +11,7 @@ class Vokker:
         self._vok_new_data_ = None
         self._datafolder_ = "test_data"
         self._safelock_ = False  # Lock for deleting data
+        self._seperator_ = ';'
 
     def set_filename(self, filename):
 
@@ -91,13 +93,14 @@ class Vokker:
             first = True
             for data in self._file_handle_:
                 if first:
-                    if re.match("\A\d{1,5}\s",data):
+                    if re.match("\A\d{1,5}\s", data):
                         number_lines = int(data)
                         first = False
                     else:
                         return False
                 else:
-                    vok = data.split(",")
+                    # todo regex
+                    vok = data.split(self._seperator_)
                     self._vok_data_[vok[0]] = vok[1].strip()
 
             if len(self._vok_data_) != number_lines:
