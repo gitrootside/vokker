@@ -1,4 +1,4 @@
-import re as re
+import re
 
 
 class Vokker:
@@ -93,15 +93,18 @@ class Vokker:
             first = True
             for data in self._file_handle:
                 if first:
-                    if re.match("\A\d{1,5}\s", data):
+                    if re.match("\A\d{1,5}\s", data):    # wrong header
                         number_lines = int(data)
                         first = False
+                        continue
                     else:
                         return False
                 else:
-                    # todo regex
-                    vok = data.split(self._seperator)
-                    self._vok_data[vok[0]] = vok[1].strip()
+                    if re.match("(\w+ *)+;(\w+ *)+", data):  # wrong datastructure
+                        vok = data.split(self._seperator)
+                        self._vok_data[vok[0]] = vok[1].strip()
+                    else:
+                        return False
 
             if len(self._vok_data) != number_lines:
                 rt = False

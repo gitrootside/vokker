@@ -99,7 +99,8 @@ class MyTestCase(unittest.TestCase):
 
         compartion_dict = {"Auto": "car",
                            "Baum": "tree",
-                           "empfohlen": "recommend"}
+                           "empfohlen": "recommend",
+                           "Ein Auto": "a car"}
         boo = bool(compartion_dict == lection.get_vok_dict())
         self.assertTrue(boo)
 
@@ -145,6 +146,7 @@ class MyTestCase(unittest.TestCase):
         rt = lection.read()
         self.assertFalse(rt)
         lection.close()
+
 
 if __name__ == '__main__':
     unittest.main()
