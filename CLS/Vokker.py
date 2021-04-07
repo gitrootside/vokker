@@ -6,12 +6,12 @@ class Vokker:
 
     def __init__(self):
         self.datafile = None
-        self._file_handle_ = None
-        self._vok_data_ = None
-        self._vok_new_data_ = None
-        self._datafolder_ = "test_data"
-        self._safelock_ = False  # Lock for deleting data
-        self._seperator_ = ';'
+        self._file_handle = None
+        self._vok_data = None
+        self._vok_new_data = None
+        self._datafolder = "test_data"
+        self._safelock = False  # Lock for deleting data
+        self._seperator = ';'
 
     def set_filename(self, filename):
 
@@ -26,9 +26,9 @@ class Vokker:
         :return: False if connection failed.... True if connection successful applied
         """
         rt = False
-        if (self._safelock_ is False) and (self._vok_new_data_ is None):
+        if (self._safelock is False) and (self._vok_new_data is None):
             try:
-                self._file_handle_ = open(self._datafolder_ + '/' + filename, mode)
+                self._file_handle = open(self._datafolder + '/' + filename, mode)
                 rt = True
             except FileNotFoundError:
                 rt = False
@@ -37,10 +37,10 @@ class Vokker:
 
     def close(self):
         rt = False
-        if (self._safelock_ is False) and (self._vok_new_data_ is None):
-            self._file_handle_.close()
+        if (self._safelock is False) and (self._vok_new_data is None):
+            self._file_handle.close()
             rt = True
-            self._file_handle_ = None
+            self._file_handle = None
         return rt
 
     def add(self, *args):
@@ -58,26 +58,26 @@ class Vokker:
         else:
             return False  # more than two words
 
-        if source not in self._vok_data_:
-            self._vok_data_[source] = translate
+        if source not in self._vok_data:
+            self._vok_data[source] = translate
             return True
         else:
             return False
 
     def get_vok_dict(self):
-        return self._vok_data_
+        return self._vok_data
 
     def write(self):
         # todo : think about overwrite und append
 
-        for key in self._vok_data_:
-            data = f'{key},{self._vok_data_[key]}\n'
-            self._file_handle_.write(data)
+        for key in self._vok_data:
+            data = f'{key},{self._vok_data[key]}\n'
+            self._file_handle.write(data)
 
     def fileexist(self, file):
 
         try:
-            f = open(self._datafolder_ + "/" + file, "r")
+            f = open(self._datafolder + "/" + file, "r")
             f.close()
             return f
         except:
@@ -85,13 +85,13 @@ class Vokker:
 
     def read(self):
         rt = False
-        if (self._file_handle_ is not None) and (self._vok_data_ is None) and (self._safelock_ is False):
+        if (self._file_handle is not None) and (self._vok_data is None) and (self._safelock is False):
             rt = True
-            self._vok_data_ = dict()
-            self._vok_new_data_ = dict()
+            self._vok_data = dict()
+            self._vok_new_data = dict()
 
             first = True
-            for data in self._file_handle_:
+            for data in self._file_handle:
                 if first:
                     if re.match("\A\d{1,5}\s", data):
                         number_lines = int(data)
@@ -100,9 +100,9 @@ class Vokker:
                         return False
                 else:
                     # todo regex
-                    vok = data.split(self._seperator_)
-                    self._vok_data_[vok[0]] = vok[1].strip()
+                    vok = data.split(self._seperator)
+                    self._vok_data[vok[0]] = vok[1].strip()
 
-            if len(self._vok_data_) != number_lines:
+            if len(self._vok_data) != number_lines:
                 rt = False
         return rt

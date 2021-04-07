@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
     def test_open_FAIL_if_safelock_is_true(self):
         datafile = 'test.vok'
         lec = Vokker()
-        lec._safelock_ = True
+        lec._safelock = True
         rt = lec.open(datafile)
 
         self.assertFalse(rt, "File opened, but safelock is True")
@@ -45,7 +45,7 @@ class MyTestCase(unittest.TestCase):
     def test_open_FAIL_if_vok_new_data_not_empty(self):
         datafile = 'test.vok'
         lec = Vokker()
-        lec._vok_new_data_ = ""
+        lec._vok_new_data = ""
         rt = lec.open(datafile)
         self.assertFalse(rt, "still unsaved data in new_data")
         lec.close()
@@ -53,7 +53,7 @@ class MyTestCase(unittest.TestCase):
     # Vokker.close
     def test_close_FAIL_if_non_opened_file(self):
         l = Vokker()
-        l._safelock_ = True
+        l._safelock = True
         rt = l.close()
         self.assertFalse(rt, "unable to close non-opened file!!! ")
 
@@ -61,19 +61,19 @@ class MyTestCase(unittest.TestCase):
         datafile = 'test.vok'
         lection = Vokker()
         lection.open(datafile)
-        lection._safelock_ = True
+        lection._safelock = True
         rt = lection.close()
         self.assertFalse(rt, "safelock is activ")
-        lection._file_handle_.close()
+        lection._file_handle.close()
 
     def test_close_FAIL_if_vok_new_data_not_empty(self):
         datafile = 'test.vok'
         lection = Vokker()
         lection.open(datafile)
-        lection._vok_new_data_ = dict()
-        lection._vok_new_data_['Auto'] = 'car'
+        lection._vok_new_data = dict()
+        lection._vok_new_data['Auto'] = 'car'
 
-        rt = lection._file_handle_.close()
+        rt = lection._file_handle.close()
         self.assertFalse(rt, "still unsaved data in new_data")
 
     # Vokker.fileexist()
@@ -103,7 +103,7 @@ class MyTestCase(unittest.TestCase):
         boo = bool(compartion_dict == lection.get_vok_dict())
         self.assertTrue(boo)
 
-        lection._file_handle_.close()
+        lection._file_handle.close()
 
     def test_read_opend_file(self):
         file = "normal.vok"
