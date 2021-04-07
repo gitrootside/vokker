@@ -126,8 +126,9 @@ class MyTestCase(unittest.TestCase):
         lection.open(file)
 
         rt = lection.read()
-        self.assertFalse(False)
         lection.close()
+        self.assertFalse(False)
+
 
     def test_read_FAIL_wrong_header(self):
         file = "wrong_header.vok"
@@ -135,8 +136,9 @@ class MyTestCase(unittest.TestCase):
         lection.open(file)
 
         rt = lection.read()
-        self.assertFalse(False)
         lection.close()
+        self.assertFalse(False)
+
 
     def test_read_FALSE_wrong_datastructur(self):
         file = "wrong_datastructur.vok"
@@ -147,6 +149,20 @@ class MyTestCase(unittest.TestCase):
         self.assertFalse(rt)
         lection.close()
 
+    # Vokker.write()
+    def test_write_new_data(self):
+        lection = self.activate_test_lection("normal.vok")
+        vok = lection._vok_data
+        print(type(vok))
+        lection.close()
+        self.assertTrue(isinstance(vok, dict))
 
-if __name__ == '__main__':
-    unittest.main()
+
+    def activate_test_lection(self, file):
+        lection = Vokker()
+        lection.open(file)
+        lection.read()
+        return lection
+
+    if __name__ == '__main__':
+        unittest.main()
