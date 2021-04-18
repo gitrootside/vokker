@@ -93,14 +93,14 @@ class Vokker:
             first = True
             for data in self._file_handle:
                 if first:
-                    if re.match("\A\d{1,5}\s", data):    # wrong header
+                    if re.match("\A\d{1,5}\s", data):    # Correct header
                         number_lines = int(data)
                         first = False
                         continue
                     else:
                         return False
                 else:
-                    if re.match("(\w+ *)+;(\w+ *)+", data):  # wrong datastructure
+                    if re.match("(\w+ *)+;(\w+ *)+", data):  # Correct datastructure
                         vok = data.split(self._seperator)
                         self._vok_data[vok[0]] = vok[1].strip()
                     else:
